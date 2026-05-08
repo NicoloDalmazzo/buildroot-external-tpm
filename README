@@ -1,0 +1,6 @@
+This external buildroot tree contains packages and modifications to build a Realm with swtpm support for Arm CCA.
+
+Use it while configuring buildroot:
+
+  make BR2_EXTERNAL=path/to/this/dir/ cca_tpm_defconfig
+

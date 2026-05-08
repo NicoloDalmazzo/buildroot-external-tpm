@@ -1,0 +1,9 @@
+config BR2_PACKAGE_CCA_LIBTPMS
+    bool "cca-libtpms"
+    depends on BR2_TOOLCHAIN_HAS_THREADS
+    depends on BR2_USE_MMU
+    select BR2_PACKAGE_OPENSSL
+    help
+      Library providing TPM functionality for swtpm.
+
+      https://github.com/stefanberger/libtpms
