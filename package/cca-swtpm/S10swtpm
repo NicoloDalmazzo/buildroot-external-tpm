@@ -1,5 +1,5 @@
 #!/bin/sh
-VTPM_DIR=/var/lib/swtpm-localca
+VTPM_DIR=/var/lib/swtpm
 SOCK=/run/swtpm.sock
 
 case "$1" in
