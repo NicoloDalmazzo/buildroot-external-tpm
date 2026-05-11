@@ -3,6 +3,7 @@
 
 REALM_KERNEL=/mnt/out/bin/Image
 REALM_INITRD=/mnt/out-br/images/rootfs.cpio
+LOGFILE=/var/log/realm-tpm.log
 
 case "$1" in
   start)
@@ -21,7 +22,7 @@ case "$1" in
       -netdev user,id=net0 \
       -cpu host -M virt -enable-kvm \
       -M gic-version=3,its=on \
-      -smp 2 -m 512M -nographic &
+      -smp 2 -m 512M -nographic >> $LOGFILE 2>&1
     ;;
   stop)
     killall qemu-system-aarch64

@@ -6,6 +6,7 @@ config BR2_PACKAGE_CCA_SWTPM
     select BR2_PACKAGE_GNUTLS
     select BR2_PACKAGE_LIBTASN1
     select BR2_PACKAGE_LIBSECCOMP
+    select BR2_PACKAGE_JSON_GLIB
     help
       Software TPM emulator providing TPM2 functionality
       inside a CCA Realm via a Unix socket.
