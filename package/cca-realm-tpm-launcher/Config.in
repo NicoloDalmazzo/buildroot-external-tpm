@@ -1,6 +1,0 @@
-config BR2_PACKAGE_CCA_REALM_TPM_LAUNCHER
-    bool "cca-realm-tpm-launcher"
-    help
-      Installs a host-side init script (S50realm-tpm) that
-      automatically launches the CCA Realm with swtpm at
-      platform boot time.
