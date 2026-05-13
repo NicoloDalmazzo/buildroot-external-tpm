@@ -1,0 +1,45 @@
+From 8a69da3954d420fa7c19f0d2d2d9fdb2a8bca5ce Mon Sep 17 00:00:00 2001
+From: Jean-Philippe Brucker <jean-philippe@linaro.org>
+Date: Thu, 31 Oct 2024 15:40:35 +0000
+Subject: [PATCH] libfdt: pack: Clear excess bytes
+
+When shrinking the DTB in pack(), clear the remaining bytes. This is
+only needed in order to get a predictable DTB, that can be measured for
+remote attestation.
+
+Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+---
+ libfdt/fdt_rw.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/libfdt/fdt_rw.c b/libfdt/fdt_rw.c
+index 0bc0859..0169b62 100644
+--- a/libfdt/fdt_rw.c
++++ b/libfdt/fdt_rw.c
+@@ -497,7 +497,7 @@ int fdt_open_into(const void *fdt, void *buf, int bufsize)
+ 
+ int fdt_pack(void *fdt)
+ {
+-	int mem_rsv_size;
++	int mem_rsv_size, shrink_size;
+ 
+ 	FDT_RW_PROBE(fdt);
+ 
+@@ -505,6 +505,11 @@ int fdt_pack(void *fdt)
+ 		* sizeof(struct fdt_reserve_entry);
+ 	fdt_packblocks_(fdt, fdt, mem_rsv_size, fdt_size_dt_struct(fdt),
+ 			fdt_size_dt_strings(fdt));
++	/* If we're shrinking the DTB, clear unused bytes */
++	shrink_size = fdt_totalsize(fdt) - fdt_data_size_(fdt);
++	if (shrink_size > 0) {
++		memset((char *)fdt + fdt_data_size_(fdt), 0, shrink_size);
++	}
+ 	fdt_set_totalsize(fdt, fdt_data_size_(fdt));
+ 
+ 	return 0;
+
+base-commit: 838f11e830e31cdd99e39c4134068bf36e4d9796
+prerequisite-patch-id: 3ba8acf1b46f58bd16a445c5fd77d901171f7fb6
+-- 
+2.46.2
+

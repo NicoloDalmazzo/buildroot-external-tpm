@@ -1,0 +1,10 @@
+config BR2_PACKAGE_CCA_WORKLOAD_ATTESTATION
+	bool "CCA Workload Attestation PoC"
+	depends on BR2_PACKAGE_HOST_GO_TARGET_ARCH_SUPPORTS
+	depends on BR2_PACKAGE_HOST_GO_TARGET_CGO_LINKING_SUPPORTS
+	help
+	  A proof-of-concept, self-contained executable that
+	  demonstrates the use of CCA attestation in a number
+	  of representative scenarios.
+
+	  https://gitlab.com/Linaro/cca-public/cca-demos/cca-workload-attestation-poc

@@ -1,0 +1,27 @@
+menuconfig BR2_PACKAGE_CCA_REALM_MEASUREMENTS
+	bool "CCA Realm Measurements"
+	depends on BR2_PACKAGE_HOST_RUSTC_TARGET_ARCH_SUPPORTS
+	select BR2_PACKAGE_HOST_RUSTC
+	select BR2_PACKAGE_HOST_PKGCONF
+	select BR2_PACKAGE_OPENSSL
+	select BR2_PACKAGE_OPENSSL_FORCE_LIBOPENSSL
+	select BR2_PACKAGE_BUSYBOX_SHOW_OTHERS # for bash
+	select BR2_PACKAGE_BASH # for gen-run-vmm.sh
+	help
+	  Given a VM configuration and the payload to run in the Realm,
+	  this tool calculates the Realm Initial and Extended
+	  Measurements, needed for CCA attestation.
+
+	  https://github.com/veraison/cca-realm-measurements
+	  
+if BR2_PACKAGE_CCA_REALM_MEASUREMENTS
+
+config BR2_PACKAGE_CCA_REALM_MEASUREMENTS_CFG
+	string "Configuration file for gen-run-vmm.sh"
+	default "scripts/gen-run-vmm.cfg"
+	help
+	  The gen-run-vmm.sh script generates a run script along with firmware
+	  tables to run a VM and help attest it. This is the config file that
+	  provides default paths. By default, use the one provided by realm-token.
+
+endif # BR2_PACKAGE_CCA_REALM_MEASUREMENTS

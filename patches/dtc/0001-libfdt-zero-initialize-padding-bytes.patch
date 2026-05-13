@@ -1,0 +1,44 @@
+From 300d87094842328c07b046a837f876440fb3fb55 Mon Sep 17 00:00:00 2001
+From: Jean-Philippe Brucker <jean-philippe@linaro.org>
+Date: Wed, 30 Oct 2024 14:29:28 +0000
+Subject: [PATCH] libfdt: zero-initialize padding bytes
+
+In fdt_splice_struct_() we use memmove() to extend the structure block,
+which copies all bytes to the right, leaving a hole to be filled by the
+caller. The requested size may contain padding bytes to align the next
+tag on 4 bytes, and callers do not currently zero-initialize those. The
+device tree specification explicitly states that the padding bytes are
+zeroed, so ensure we don't leave old data in there.
+
+Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+---
+ libfdt/fdt_rw.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/libfdt/fdt_rw.c b/libfdt/fdt_rw.c
+index 3621d36..0bc0859 100644
+--- a/libfdt/fdt_rw.c
++++ b/libfdt/fdt_rw.c
+@@ -89,6 +89,17 @@ static int fdt_splice_struct_(void *fdt, void *p,
+ 	if ((err = fdt_splice_(fdt, p, oldlen, newlen)))
+ 		return err;
+ 
++	/*
++	 * Padding may be added to property data and node names to align the
++        * next tag on 4 bytes. Ensure the padding is zeroed. The caller will
++        * initialize the rest.
++	 */
++	if (delta > 0) {
++		int last_bytes = delta > 3 ? 3 : delta;
++
++		memset((char *)p + newlen - last_bytes, 0, last_bytes);
++	}
++
+ 	fdt_set_size_dt_struct(fdt, fdt_size_dt_struct(fdt) + delta);
+ 	fdt_set_off_dt_strings(fdt, fdt_off_dt_strings(fdt) + delta);
+ 	return 0;
+
+base-commit: 838f11e830e31cdd99e39c4134068bf36e4d9796
+-- 
+2.46.2
+
