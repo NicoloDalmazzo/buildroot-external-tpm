@@ -1,0 +1,6 @@
+config BR2_PACKAGE_CCA_TPM_TEST
+    bool "CCA swtpm test"
+    depends on BR2_PACKAGE_CCA_LIBTPMS
+    help
+      Simple C test program for libtpms API
+      inside a CCA Realm.
