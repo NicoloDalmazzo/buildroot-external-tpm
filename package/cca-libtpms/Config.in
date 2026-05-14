@@ -1,5 +1,5 @@
 config BR2_PACKAGE_CCA_LIBTPMS
-    bool "cca-libtpms"
+    bool "CCA libtpms"
 	select BR2_PACKAGE_HOST_PKGCONF
     select BR2_PACKAGE_OPENSSL
 	select BR2_PACKAGE_OPENSSL_FORCE_LIBOPENSSL
