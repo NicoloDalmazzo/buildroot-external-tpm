@@ -36,7 +36,9 @@ BR2_PACKAGE_CCA_REALM_MEASUREMENTS=y
 BR2_PACKAGE_CCA_WORKLOAD_ATTESTATION=y
 BR2_PACKAGE_KEYBROKER_DEMO=y
 
-BR2_ROOTFS_POST_BUILD_SCRIPT="$(BR2_EXTERNAL_LINARO_CCA_PATH)/scripts/post-build.sh"
+BR2_PACKAGE_LIBTPMS=y
+
+BR2_ROOTFS_POST_BUILD_SCRIPT="$(BR2_EXTERNAL_TPM_CCA_PATH)/scripts/post-build.sh"
 
 # Try to generate the same image every time, so we only need to provision
 # the verifier with an initrd hash once.
