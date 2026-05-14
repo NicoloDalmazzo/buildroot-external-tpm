@@ -33,13 +33,14 @@ int main(void)
     /* Step 1 - set state storage directory BEFORE anything else */
     rc = TPMLIB_SetState(TPMLIB_STATE_SAVE_STATE, NULL, 0);
 
+    printf("=== Test 1: TPM Initialization ===\n");
     /* Step 2 - choose TPM2 */
     rc = TPMLIB_ChooseTPMVersion(TPMLIB_TPM_VERSION_2);
     if (rc != TPM_SUCCESS) {
         fprintf(stderr, "FAIL: ChooseTPMVersion 0x%08x\n", rc);
         return -1;
     }
-
+    printf("=== Test 1: TPM Initialization ===\n");
     /* Step 3 - set the NV storage path */
     rc = TPMLIB_SetBufferSize(0, NULL, NULL);
 
