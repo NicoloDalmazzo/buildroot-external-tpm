@@ -1,4 +1,4 @@
-CC = aarch64-linux-gnu-gcc
+CC = arch64-buildroot-linux-gnu-gcc
 CFLAGS = -Wall -Wextra -I/usr/include
 LDFLAGS = -ltpms
 
