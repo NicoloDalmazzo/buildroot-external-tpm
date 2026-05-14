@@ -1,4 +1,4 @@
-CCA_SWTPM_VERSION = v0.10.0
+CCA_SWTPM_VERSION = v0.10.1
 CCA_SWTPM_SITE = https://github.com/stefanberger/swtpm.git
 
 CCA_SWTPM_SITE_METHOD = git

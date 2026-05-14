@@ -3,7 +3,7 @@
 # libtpms
 #
 ################################################################################
-CCA_LIBTPMS_VERSION = v0.10.0
+CCA_LIBTPMS_VERSION = v0.10.2
 CCA_LIBTPMS_SITE = https://github.com/stefanberger/libtpms.git
 
 CCA_LIBTPMS_SITE_METHOD = git
