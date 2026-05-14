@@ -1,0 +1,8 @@
+config BR2_PACKAGE_CCA_SWTPM
+    bool "CCA swtpm"
+    select BR2_PACKAGE_CCA_LIBTPMS
+    help
+      Software TPM emulator providing TPM2 functionality
+      inside a CCA Realm via a Unix socket.
+
+      https://github.com/stefanberger/swtpm
