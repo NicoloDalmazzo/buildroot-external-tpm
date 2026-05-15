@@ -1,8 +1,6 @@
 config BR2_PACKAGE_CCA_SWTPM
     bool "CCA swtpm"
     select BR2_PACKAGE_CCA_LIBTPMS
-    select BR2_PACKAGE_NET_TOOLS
-    select BR2_PACKAGE_IPROUTE2
     help
       Software TPM emulator providing TPM2 functionality
       inside a CCA Realm via a Unix socket.
