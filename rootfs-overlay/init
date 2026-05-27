@@ -2,6 +2,7 @@
 # devtmpfs does not get automounted for initramfs
 /bin/mount -t devtmpfs devtmpfs /dev
 /bin/mount -t proc proc /proc
+/bin/mount -t 9p -o trans=virtio shr0 /mnt
 
 # use the /dev/console device node from devtmpfs if possible to not
 # confuse glibc's ttyname_r().
@@ -13,9 +14,10 @@ if (exec 0</dev/console) 2>/dev/null; then
     exec 2>/dev/console
 fi
 
-if grep -q "host=t" /proc/cmdline; then
+if grep -q "initrd=rootfs.cpio" /proc/cmdline; then
     echo "Hello host!"
-    exec /usr/bin/gen-run-vmm.sh --tap
+    /usr/bin/gen-run-vmm.sh
 else
     echo "Hello Realm!"
     exec /sbin/init "$@"
+fi
